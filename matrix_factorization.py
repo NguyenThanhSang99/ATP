@@ -1,43 +1,5 @@
 import nimfa
 
-def print_info(fit, idx=None):
-    """
-    Print to stdout info about the factorization.
-    
-    :param fit: Fitted factorization model.
-    :type fit: :class:`nimfa.models.mf_fit.Mf_fit`
-    :param idx: Name of the matrix (coefficient) matrix. Used only in the multiple NMF model. Therefore in factorizations 
-                that follow standard or nonsmooth model, this parameter can be omitted. Currently, SNMNMF implements 
-                multiple NMF model.
-    :type idx: `str` with values 'coef' or 'coef1' (`int` value of 0 or 1, respectively) 
-    """
-    print("=================================================================================================")
-    print("Factorization method:", fit.fit)
-    print("Initialization method:", fit.fit.seed)
-    #print("Basis matrix W: ")
-    #print(__fact_factor(fit.basis()))
-    print("Mixture (Coefficient) matrix H%d: " % (idx if idx != None else 0))
-    #print(__fact_factor(fit.coef(idx)))
-    #print("Matrix Reconstruction...\n")
-    #print(__fact_factor(np.matmul(fit.basis(),fit.coef(idx))))
-    print("Distance (Euclidean): ", fit.distance(metric='euclidean', idx=idx))
-    # We can access actual number of iteration directly through fitted model.
-    # fit.fit.n_iter
-    print("Actual number of iterations: ", fit.summary(idx)['n_iter'])
-    # We can access sparseness measure directly through fitted model.
-    # fit.fit.sparseness()
-    print("Sparseness basis: %7.4f, Sparseness mixture: %7.4f" % (fit.summary(idx)['sparseness'][0], fit.summary(idx)['sparseness'][1]))
-    # We can access explained variance directly through fitted model.
-    # fit.fit.evar()
-    print("Explained variance: ", fit.summary(idx)['evar'])
-    # We can access residual sum of squares directly through fitted model.
-    # fit.fit.rss()
-    print("Residual sum of squares: ", fit.summary(idx)['rss'])
-    # There are many more ... but just cannot print out everything =] and some measures need additional data or more runs
-    # e.g. entropy, predict, purity, coph_cor, consensus, select_features, score_features, connectivity
-    print("=================================================================================================")
-    return fit.basis(),fit.coef(idx)
-
 
 def run_nmf(V,rank = 12, max_iter = 5000):
     """
@@ -51,9 +13,8 @@ def run_nmf(V,rank = 12, max_iter = 5000):
     nmf = nimfa.Nmf(V, seed="random_vcol", rank=rank, max_iter=max_iter, update='euclidean',
                       objective='fro')
     fit = nmf()
-    print_info(fit)
     # divergence
     nmf = nimfa.Nmf(V, seed="random_vcol", rank=rank, max_iter=max_iter, initialize_only=True,
                     update='divergence', objective='div')
     fit = nmf()
-    return print_info(fit)
+    return fit.basis(),fit.coef()

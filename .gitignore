@@ -129,3 +129,4 @@ dmypy.json
 .pyre/
 
 ATP/*
+libpmf-1.41/*

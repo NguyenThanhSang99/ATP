@@ -47,7 +47,7 @@ import argparse
 if __name__ == "__main__":
 
 	parser = argparse.ArgumentParser()
-	parser.add_argument("--dag",default= " ", help = "input directed acyclic graph (DAG) (format can be *.gpickle, *.edges)")
+	parser.add_argument("--dag",default= "dataset/demo_DAG.edges", help = "input directed acyclic graph (DAG) (format can be *.gpickle, *.edges)")
 	parser.add_argument("--rank", type = int, default = 64, help = "number of latent factors")
 	parser.add_argument("--strategy",default= "ln", help = "strategies to bulid hierarchical matrix: constant, linear, harmonic/ln")	
 	parser.add_argument('--id_mapping', help='Making Node ID start with 0', action='store_true')
