@@ -1,0 +1,7 @@
+pickle
+pandas
+numpy
+networkx
+scipy
+sklearn
+nimfa
