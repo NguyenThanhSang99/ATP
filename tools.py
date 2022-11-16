@@ -17,4 +17,4 @@ def run_command(command,is_print = True):
 	p = subprocess.Popen(command,shell = True, stdout = subprocess.PIPE)
 	o = p.communicate() 
 	if is_print:
-		print o[0]
+		print(o[0])
